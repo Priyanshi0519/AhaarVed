@@ -13,5 +13,7 @@ const rewardSchema = new mongoose.Schema({
     default: Date.now
  },
 });
+const Reward=mongoose.model("Reward", rewardSchema);
 
-export default mongoose.model("Reward", rewardSchema);
+
+export default Reward;

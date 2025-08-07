@@ -14,5 +14,5 @@ const tipSchema = new mongoose.Schema({
     default: Date.now 
   },
 });
-
-export default mongoose.model("Tip", tipSchema);
+const Tip=mongoose.model("Tip", tipSchema);
+export default Tip;

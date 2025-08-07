@@ -32,5 +32,6 @@ const plateImageSchema = new mongoose.Schema({
     ],
   },
 });
+const PlateImage=mongoose.model("PlateImage", plateImageSchema);
 
-export default mongoose.model("PlateImage", plateImageSchema);
+export default PlateImage;

@@ -34,10 +34,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['diabetes', 'obesity','heart disease','bp', 'none']
     }],
-    rewards: [{
+    rewards: {
         type: Number,
         default: 0
-    }],
+    },
     createdAt: {
         type: Date,
         default: Date.now

@@ -32,4 +32,4 @@ const monthlyRecordSchema = new mongoose.Schema({
     }
 });
 
-export default mongoose.model("MonthlyRecord", monthlyRecordSchema);
+export default mongoose.model("NutritionRecord", monthlyRecordSchema);

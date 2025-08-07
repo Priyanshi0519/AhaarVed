@@ -21,7 +21,7 @@ export const registerUser = async (req, res) => {
       height,
       weight,
       conditions,
-      rewards: rewards || [],
+      rewards: rewards || 0,
     });
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {

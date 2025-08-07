@@ -19,4 +19,5 @@ const healthAlertSchema = new mongoose.Schema({
    },
 });
 
-export default mongoose.model("HealthAlert", healthAlertSchema);
+const healthAlert=mongoose.model("HealthAlert", healthAlertSchema);
+export default healthAlert;
