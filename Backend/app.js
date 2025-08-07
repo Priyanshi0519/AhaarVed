@@ -6,6 +6,8 @@ import riskRoutes from './routes/riskRoutes.js';
 import tipsRoutes from './routes/tipsRoutes.js';
 import healthRecordRoutes from './routes/healthRecordRoutes.js';
 import nutritionRoutes from './routes/nutritionRoutes.js';
+import userRoutes from './routes/userRoutes.js';
+
 const app = express();
 
 app.use(cors());
@@ -13,6 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
 
 app.use('/api/rewards', rewardRoutes);
 app.use('/api/risk', riskRoutes);
