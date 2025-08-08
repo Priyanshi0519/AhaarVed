@@ -14,7 +14,7 @@ import NotFoundPage from "./pages/NotFound";
 
 // Router Config
 const router = createBrowserRouter([
-  { path: "he", element: <NotFoundPage/> },
+  { path: "*", element: <NotFoundPage/> },
 ]);
 
 function App() {

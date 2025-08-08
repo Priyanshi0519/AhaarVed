@@ -1,39 +1,41 @@
 import Reward from '../models/rewardModel.js';
 import User from '../models/userModel.js';
 
-// Add reward points to a user's account
 export const addRewardPoints = async (req, res) => {
-    try {
-        const { userId, points, reason } = req.body;
+  try {
+    const { userId, points, reason } = req.body;
 
-        // 1. Save to Reward Table
-        const reward = new Reward({
-            user: userId,
-            points,
-            reason
-        });
-        await reward.save();
-
-        // 2. Also update the User's rewards array
-        await User.findByIdAndUpdate(
-        userId,
-        { $inc: { rewards: points } }, // increment reward points
-        { new: true }
-      );
-
-
-        res.status(201).json({
-            success: true,
-            message: "Reward points added successfully to both Reward table and User model",
-            reward
-        });
-    } catch (error) {
-        console.error("Error adding reward points:", error);
-        res.status(500).json({ success: false, message: "Server error", error: error.message });
+    const numericPoints = Number(points);
+    if (!userId || isNaN(numericPoints)) {
+      return res.status(400).json({ success: false, message: "Invalid userId or points" });
     }
+
+    const reward = new Reward({ user: userId, points: numericPoints, reason });
+    await reward.save();
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $inc: { rewards: numericPoints } },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    res.status(201).json({
+      success: true,
+      message: "Reward points added successfully",
+      reward,
+      updatedUser
+    });
+  } catch (error) {
+    console.error("Error adding reward points:", error);
+    res.status(500).json({ success: false, message: "Server error", error: error.message });
+  }
 };
 
-// Redeem points
+
 export const redeemReward = async (req, res) => {
   try {
     const { userId, points } = req.body;
@@ -52,7 +54,7 @@ export const redeemReward = async (req, res) => {
   }
 };
 
-// Get user rewards history
+
 export const getUserRewards = async (req, res) => {
   try {
     const { userId } = req.params;
