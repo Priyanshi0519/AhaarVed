@@ -30,6 +30,6 @@ const monthlyRecordSchema = new mongoose.Schema({
     avgFiberPerDay: {
         type: Number,
     }
-});
+},{timestamps: true});
 
 export default mongoose.model("NutritionRecord", monthlyRecordSchema);

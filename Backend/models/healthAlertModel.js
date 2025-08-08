@@ -17,7 +17,8 @@ const healthAlertSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
    },
-});
+},{timestamps: true}
+);
 
 const healthAlert=mongoose.model("HealthAlert", healthAlertSchema);
 export default healthAlert;

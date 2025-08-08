@@ -38,11 +38,26 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    badges: [{
+    name: {
+        type: String,
+        required: true
+    },
+    reason: {
+        type: String,
+        required: true
+    },
+    awardedAt: {
+        type: Date,
+        default: Date.now
+    }
+    }],
     createdAt: {
         type: Date,
         default: Date.now
     }
-});
+    },{timestamps: true}
+);
 
 const User = mongoose.model('User', userSchema);
 

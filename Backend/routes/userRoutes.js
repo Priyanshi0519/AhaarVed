@@ -3,7 +3,8 @@ import {
   getUserProfile,
   updateUserProfile,
   changePassword,
-  deleteUser
+  deleteUser,
+  getUserBadges
 } from '../controllers/userController.js';
 
 import authenticateUser  from '../middleware/authMiddleware.js';
@@ -14,5 +15,6 @@ router.get('/profile', authenticateUser, getUserProfile);
 router.put('/profile', authenticateUser, updateUserProfile);
 router.put('/change-password', authenticateUser, changePassword);
 router.delete('/delete-account', authenticateUser, deleteUser);
+router.get('/badges', authenticateUser, getUserBadges);
 
 export default router;

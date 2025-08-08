@@ -13,6 +13,7 @@ const tipSchema = new mongoose.Schema({
     type: Date, 
     default: Date.now 
   },
-});
+},{timestamps: true}
+);
 const Tip=mongoose.model("Tip", tipSchema);
 export default Tip;

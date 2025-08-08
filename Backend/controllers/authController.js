@@ -1,4 +1,5 @@
 import User from "../models/userModel.js";
+import { checkAndAwardBadges } from '../utils/badgeUtils.js';
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -54,6 +55,8 @@ export const loginUser = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "30d",
     });
+    
+    await checkAndAwardBadges(user._id); 
 
     res.status(200).json({
       user: {
