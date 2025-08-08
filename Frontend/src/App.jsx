@@ -9,14 +9,21 @@ import {
 } from "react-router-dom";
 import { Toaster } from "sonner";
 
+//import './index.css';
+import './index.css';
+
 import NotFoundPage from "./pages/NotFound";
 import Home from "./pages/Home";
+import SignIn from "./pages/Auth/signin";
+import SignUp from "./pages/Auth/signup";
 
 
 // Router Config
 const router = createBrowserRouter([
   {path:'/',element:<Home/>},
   { path: "*", element: <NotFoundPage/> },
+  { path: "/auth/signin", element: <SignIn /> },
+  { path: "/auth/signup", element: <SignUp /> },
 ]);
 
 function App() {
@@ -30,3 +37,5 @@ function App() {
 }
 
 export default App;
+
+
