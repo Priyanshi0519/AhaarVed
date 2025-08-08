@@ -12,7 +12,8 @@ const rewardSchema = new mongoose.Schema({
     type: Date, 
     default: Date.now
  },
-});
+},{timestamps: true}
+);
 const Reward=mongoose.model("Reward", rewardSchema);
 
 

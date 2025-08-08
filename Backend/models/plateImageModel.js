@@ -31,7 +31,7 @@ const plateImageSchema = new mongoose.Schema({
       },
     ],
   },
-});
+},{timestamps: true});
 const PlateImage=mongoose.model("PlateImage", plateImageSchema);
 
 export default PlateImage;
