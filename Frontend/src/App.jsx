@@ -10,10 +10,12 @@ import {
 import { Toaster } from "sonner";
 
 import NotFoundPage from "./pages/NotFound";
+import Home from "./pages/Home";
 
 
 // Router Config
 const router = createBrowserRouter([
+  {path:'/',element:<Home/>},
   { path: "*", element: <NotFoundPage/> },
 ]);
 
