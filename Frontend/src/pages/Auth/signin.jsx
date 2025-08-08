@@ -36,7 +36,7 @@ export default function SignIn() {
               <Heart className="w-6 h-6 text-white" />
             </div>
             <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-success bg-clip-text text-transparent">
-              ThaliSense
+              AhaarVed
             </h1>
           </div>
           <p className="text-muted-foreground">Welcome back to your health journey</p>

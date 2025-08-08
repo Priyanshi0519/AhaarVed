@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Camera, User, BarChart3, Heart } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export function Layout({ children }) {
   return (
@@ -12,7 +13,7 @@ export function Layout({ children }) {
               <Heart className="w-5 h-5 text-white" />
             </div>
             <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-success bg-clip-text text-transparent">
-              ThaliSense
+              AhaarVed
             </h1>
           </div>
 
@@ -32,12 +33,17 @@ export function Layout({ children }) {
           </nav>
 
           <div className="flex items-center space-x-3">
-            <Button variant="outline" size="sm">
-              Sign In
-            </Button>
-            <Button size="sm">
-              Get Started
-            </Button>
+            <Link to="/auth/signin">
+              <Button variant="outline" size="sm">
+                Sign In
+              </Button>
+            </Link>
+
+            <Link to="/auth/signup">
+              <Button size="sm">
+                Sign Up
+              </Button>
+            </Link>
           </div>
         </div>
       </header>
@@ -51,7 +57,7 @@ export function Layout({ children }) {
       <footer className="border-t border-border/50 bg-background/80 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-8">
           <div className="text-center text-sm text-muted-foreground">
-            <p>ThaliSense - AI-powered nutrition tracking for better health</p>
+            <p>AhaarVed - AI-powered nutrition tracking for better health</p>
             <p className="mt-2">Track • Analyze • Improve</p>
           </div>
         </div>

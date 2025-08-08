@@ -40,7 +40,7 @@ export function Hero() {
       <div className="grid md:grid-cols-3 gap-8 mb-16">
         <Card className="p-8 text-center gradient-card shadow-elevated border-0">
           <div className="w-16 h-16 rounded-full gradient-primary flex items-center justify-center mx-auto mb-6">
-            <Camera className="w-8 h-8 text-white" />
+            <Camera className="w-8 h-8 text-black" />
           </div>
           <h3 className="text-xl font-semibold mb-4">Smart Recognition</h3>
           <p className="text-muted-foreground">
@@ -50,7 +50,7 @@ export function Hero() {
 
         <Card className="p-8 text-center gradient-card shadow-elevated border-0">
           <div className="w-16 h-16 rounded-full gradient-success flex items-center justify-center mx-auto mb-6">
-            <Shield className="w-8 h-8 text-white" />
+            <Shield className="w-8 h-8 text-black" />
           </div>
           <h3 className="text-xl font-semibold mb-4">Health Alerts</h3>
           <p className="text-muted-foreground">
@@ -74,7 +74,7 @@ export function Hero() {
         <Card className="p-8 shadow-elevated border-0 gradient-card">
           <div className="text-center mb-6">
             <h3 className="text-2xl font-semibold mb-2">Sample Analysis</h3>
-            <p className="text-muted-foreground">See how ThaliSense analyzes your meal</p>
+            <p className="text-muted-foreground">See how AhaarVed analyzes your meal</p>
           </div>
 
           <div className="bg-muted/30 rounded-lg p-6 mb-6">
