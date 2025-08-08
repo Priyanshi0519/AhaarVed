@@ -1,33 +1,23 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Navigate,
-  Outlet,
-  useLocation,
-} from "react-router-dom";
 import { Toaster } from "sonner";
-
-//import './index.css';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import './index.css';
 
+// Pages
 import NotFoundPage from "./pages/NotFound";
 import Home from "./pages/Home";
 import SignIn from "./pages/Auth/signin";
 import SignUp from "./pages/Auth/signup";
+import DashBoard from "./pages/Analytics/DashBoard";
 
-
-// Router Config
 const router = createBrowserRouter([
-  {path:'/',element:<Home/>},
-  { path: "*", element: <NotFoundPage/> },
+  { path: "/", element: <Home /> },
+  { path: "/analytics", element: <DashBoard /> }, 
   { path: "/auth/signin", element: <SignIn /> },
   { path: "/auth/signup", element: <SignUp /> },
+  { path: "*", element: <NotFoundPage /> },
 ]);
 
 function App() {
-
   return (
     <>
       <Toaster richColors position="top-right" />
@@ -37,5 +27,3 @@ function App() {
 }
 
 export default App;
-
-
