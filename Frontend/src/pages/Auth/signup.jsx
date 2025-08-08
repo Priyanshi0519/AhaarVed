@@ -162,7 +162,7 @@ export default function SignUp() {
             <div className="mt-6 text-center text-sm">
               <span className="text-muted-foreground">Already have an account? </span>
               <Link 
-                to="/signin" 
+                to="/auth/signin" 
                 className="text-primary hover:text-primary-hover font-medium transition-colors"
               >
                 Sign in
