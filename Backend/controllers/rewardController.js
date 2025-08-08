@@ -17,7 +17,7 @@ export const addRewardPoints = async (req, res) => {
         // 2. Also update the User's rewards array
         await User.findByIdAndUpdate(
         userId,
-        { $inc: { rewardPoints: points } }, // increment reward points
+        { $inc: { rewards: points } }, // increment reward points
         { new: true }
       );
 
