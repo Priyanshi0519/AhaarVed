@@ -50,7 +50,7 @@ const DashBoard = () => {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground text-center">
-                LeetCode-style visualization of your daily nutrition health with color-coded tracking
+                Visualization of your daily nutrition health with color-coded tracking
               </p>
             </CardContent>
           </Card>
