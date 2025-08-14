@@ -15,7 +15,6 @@ export default function SignIn() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle sign in logic here
     console.log("Sign in attempt:", formData);
   };
 
