@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
   const fetchUserProfile = async () => {
     try {
       const res = await api.get("/users/profile"); // backend should return user details
-      setUser(res.data);
+      setUser(res.data.user);
     } catch {
       logout();
     } finally {
@@ -33,6 +33,8 @@ export const AuthProvider = ({ children }) => {
     const res = await api.post("/auth/login", { email, password });
     localStorage.setItem("token", res.data.token);
     api.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`;
+    console.log(res.data.user);
+    
     setUser(res.data.user);
   };
 

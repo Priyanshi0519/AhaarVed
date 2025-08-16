@@ -2,21 +2,26 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useAuth } from '@/context/AuthContext';
+import api from '@/api';
 
 const CalorieChart = () => {
   const [weeklyData, setWeeklyData] = useState([]);
-
+  const {user}=useAuth();
+  console.log("Us",user)
+  const userId=user?.id;
   useEffect(() => {
+    if (!user) return;
     const fetchWeeklyData = async () => {
       try {
-        const res = await axios.get(`/api/nutrition/calorie-history/${userId}`);
+        const res = await axios.get(`/nutrition/calorie-history/${userId}`);
         setWeeklyData(res.data);
       } catch (err) {
         console.error("Error fetching weekly calories", err);
       }
     };
     fetchWeeklyData();
-  }, [userId]);
+  }, [user]);
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
