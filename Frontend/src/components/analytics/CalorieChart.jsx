@@ -1,17 +1,22 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const CalorieChart = () => {
-  // Sample weekly data
-  const weeklyData = [
-    { day: 'Mon', calories: 2150, target: 2000 },
-    { day: 'Tue', calories: 1950, target: 2000 },
-    { day: 'Wed', calories: 2300, target: 2000 },
-    { day: 'Thu', calories: 1800, target: 2000 },
-    { day: 'Fri', calories: 2450, target: 2000 },
-    { day: 'Sat', calories: 2600, target: 2000 },
-    { day: 'Sun', calories: 2200, target: 2000 },
-  ];
+  const [weeklyData, setWeeklyData] = useState([]);
+
+  useEffect(() => {
+    const fetchWeeklyData = async () => {
+      try {
+        const res = await axios.get(`/api/nutrition/calorie-history/${userId}`);
+        setWeeklyData(res.data);
+      } catch (err) {
+        console.error("Error fetching weekly calories", err);
+      }
+    };
+    fetchWeeklyData();
+  }, [userId]);
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
@@ -22,13 +27,13 @@ const CalorieChart = () => {
             <span className="text-primary">Calories: </span>
             {payload[0].value}
           </p>
-          <p className="text-sm">
+          {/* <p className="text-sm">
             <span className="text-muted-foreground">Target: </span>
             {payload[1].value}
-          </p>
-          <p className="text-xs text-muted-foreground mt-1">
+          </p> */}
+          {/* <p className="text-xs text-muted-foreground mt-1">
             {payload[0].value > payload[1].value ? 'Above target' : 'Below target'}
-          </p>
+          </p> */}
         </div>
       );
     }
@@ -42,7 +47,7 @@ const CalorieChart = () => {
           📊 Weekly Calorie Intake
         </CardTitle>
         <p className="text-sm text-muted-foreground">
-          Daily calories vs target (2000 cal)
+          Daily calories
         </p>
       </CardHeader>
       <CardContent>
@@ -65,12 +70,12 @@ const CalorieChart = () => {
               radius={[4, 4, 0, 0]}
               className="transition-all duration-300"
             />
-            <Bar 
+            {/* <Bar 
               dataKey="target" 
               fill="hsl(var(--muted-foreground))"
               radius={[4, 4, 0, 0]}
               opacity={0.3}
-            />
+            /> */}
           </BarChart>
         </ResponsiveContainer>
         
@@ -79,10 +84,10 @@ const CalorieChart = () => {
             <div className="w-4 h-4 rounded bg-primary"></div>
             <span>Actual Intake</span>
           </div>
-          <div className="flex items-center gap-2">
+          {/* <div className="flex items-center gap-2">
             <div className="w-4 h-4 rounded bg-muted-foreground opacity-30"></div>
             <span>Target</span>
-          </div>
+          </div> */}
           <div className="text-muted-foreground">
             Avg: {Math.round(weeklyData.reduce((sum, day) => sum + day.calories, 0) / weeklyData.length)} cal
           </div>

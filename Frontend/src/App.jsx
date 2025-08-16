@@ -11,6 +11,7 @@ import DashBoard from "./pages/Analytics/DashBoard";
 import Analytics from "./pages/Analytics/Analytics";
 import ProfilePage from "./pages/Profile/ProfilePage";
 import HealthDataPage from "./pages/Profile/HealthDataPage";
+import BadgesPage from "./pages/BadgesPage";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
   { path: "/auth/signup", element: <SignUp /> },
   { path: "*", element: <NotFoundPage /> },
   { path: '/profile', element: <ProfilePage /> },
+  {path:'/badges',element:<BadgesPage/>},
   { path: '/health', element: <HealthDataPage /> },
 ]);
 

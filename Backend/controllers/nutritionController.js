@@ -1,15 +1,53 @@
 import PlateImage from '../models/plateImageModel.js';
+import DailyCalorie from '../models/dailyCalorieModel.js';
 import NutritionRecord from '../models/monthlyRecModel.js';
 
 // Upload plate image
 export const uploadPlateImage = async (req, res) => {
   try {
     const { userId, imageUrl } = req.body;
-    const image = new PlateImage({ user: userId, imageUrl });
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ success: false, message: "Invalid user ID" });
+    }
+
+    // 1️⃣ Call ML API for nutrition analysis
+    // Replace with your real ML API call
+    const mlResponse = {
+      calories: 250,
+      protein: 12,
+      carbs: 30,
+      fats: 10,
+    };
+
+    // 2️⃣ Save plate image with analysis
+    const image = new PlateImage({
+      user: userId,
+      imageUrl,
+      analysis: mlResponse, // store nutrition directly in PlateImage
+      uploadedAt: new Date()
+    });
+
     await image.save();
 
-    res.status(201).json({ success: true, message: 'Image uploaded.', image });
+    // 3️⃣ Optionally save in NutritionRecord for monthly stats
+    const record = new NutritionRecord({
+      user: userId,
+      nutrition: mlResponse,
+      date: new Date()
+    });
+
+    await record.save();
+
+    res.status(201).json({
+      success: true,
+      message: 'Image uploaded & nutrition saved.',
+      image,
+      record
+    });
+
   } catch (error) {
+    console.error("Error uploading image:", error);
     res.status(500).json({ success: false, message: 'Error uploading image.', error });
   }
 };
@@ -90,3 +128,63 @@ export const getMonthlyNutritionSummary = async (req, res) => {
 };
 
 
+// ✅ Calculate and Save Daily Calories
+export const saveDailyCalories = async (req, res) => {
+  try {
+    const { userId } = req.params; // Assuming userId is in URL
+
+    // Get today's start and end
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    // Fetch all plate images for today
+    const todayPlates = await PlateImage.find({
+      user: userId,
+      createdAt: { $gte: today, $lt: tomorrow }
+    });
+
+    // Calculate total calories
+    const totalCalories = todayPlates.reduce(
+      (sum, plate) => sum + (plate.analysis?.calories || 0),
+      0
+    );
+
+    // Save to DailyCalorie (update if already exists for the day)
+    const dailyRecord = await DailyCalorie.findOneAndUpdate(
+      { user: userId, date: today },
+      { totalCalories },
+      { upsert: true, new: true }
+    );
+
+    res.json({
+      message: "Daily calories saved successfully",
+      data: dailyRecord
+    });
+  } catch (error) {
+    console.error("Error saving daily calories:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
+// ✅ Get Calories for Chart (last 7 days for example)
+export const getCalorieHistory = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { days = 7 } = req.query;
+
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - days);
+
+    const records = await DailyCalorie.find({
+      user: userId,
+      date: { $gte: startDate }
+    }).sort({ date: 1 });
+
+    res.json(records);
+  } catch (error) {
+    console.error("Error fetching calorie history:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+};
