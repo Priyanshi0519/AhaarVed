@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Camera, User, BarChart3, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext"; // 👈 import auth hook
 
 export function Layout({ children }) {
+  const { user, logout } = useAuth(); // 👈 get user + logout
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-primary-light/20 to-success-light/10">
       {/* Header */}
@@ -28,32 +31,41 @@ export function Layout({ children }) {
                 Analytics
               </Button>
             </Link>
-            <Button variant="ghost" size="sm">
-              <User className="w-4 h-4 mr-2" />
-              Profile
-            </Button>
+            {user && (
+              <Link to="/profile">
+                <Button variant="ghost" size="sm">
+                  <User className="w-4 h-4 mr-2" />
+                  Profile
+                </Button>
+              </Link>
+            )}
           </nav>
 
           <div className="flex items-center space-x-3">
-            <Link to="/auth/signin">
-              <Button variant="outline" size="sm">
-                Sign In
+            {user ? (
+              <Button variant="outline" size="sm" onClick={logout}>
+                Logout
               </Button>
-            </Link>
-
-            <Link to="/auth/signup">
-              <Button size="sm">
-                Sign Up
-              </Button>
-            </Link>
+            ) : (
+              <>
+                <Link to="/auth/signin">
+                  <Button variant="outline" size="sm">
+                    Sign In
+                  </Button>
+                </Link>
+                <Link to="/auth/signup">
+                  <Button size="sm">
+                    Sign Up
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="flex-1">
-        {children}
-      </main>
+      <main className="flex-1">{children}</main>
 
       {/* Footer */}
       <footer className="border-t border-border/50 bg-background/80 backdrop-blur-sm">
